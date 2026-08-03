@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Models\Models;
+// use App\Http\Models\Models;
 use App\Http\Resources\ProductCollection;
+use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,9 +26,15 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $product = Product::create($request->validated());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product berhasil ditambahkan',
+            'data' => new ProductResource($product),
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -40,9 +48,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        
+        $product->update($request->validated());
+        return response()->json([
+            'status'=>true,
+            'message'=>'Product Berhasil di Update!',
+            'data'=>new ProductResource($product),
+        ], Response::HTTP_OK);
     }
 
     /**
