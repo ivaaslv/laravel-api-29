@@ -8,7 +8,6 @@ use App\Http\Resources\ProductCollection;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ProductController extends Controller
@@ -50,8 +49,8 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        
         $product->update($request->validated());
+        
         return response()->json([
             'status'=>true,
             'message'=>'Product Berhasil di Update!',
@@ -62,8 +61,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'status'=>true,
+            'message'=>'Product Berhasil di hapus!',
+        ], Response::HTTP_OK);
     }
 }
