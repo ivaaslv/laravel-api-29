@@ -38,6 +38,17 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+
+    public function GetJWTIdentifier() 
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
     protected function casts(): array
     {
         return [
