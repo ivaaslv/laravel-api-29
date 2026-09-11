@@ -82,6 +82,7 @@ class AuthController extends Controller
         ]);
     }
 
+    // profile
     public function profile() {
         try {
             $user = JWTAuth::parseToken()->authenticate();
@@ -100,6 +101,7 @@ class AuthController extends Controller
         }
     }
 
+    // logout
     public function logout() {
         try {
             JWTAuth::invalidate(JWTAuth::getToken());

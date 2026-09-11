@@ -22,12 +22,13 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
     Route::post('login', [AuthController::class, 'login'])->name('login');
 
+    // 'jwt' ini sebagai satpam, harus masukin token dulu baru bisa logout dan get profile
     Route::middleware('jwt')->group(function() {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('profile', [AuthController::class, 'profile'])->name('profile');
     });
 });
-
+    // 'jwt' ini juga sama, harus masukin token dulu
 Route::middleware('jwt')->group(function () {
     Route::apiResource('product', ProductController::class);
 });
